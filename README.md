@@ -4,6 +4,8 @@
 ## Description du projet
 Un projet de Data engineering dans lequel nous allons créer un pipeline de données ETL pour extraire, analyser et visualiser des informations à partir des données d'une entreprise de vente au détail en ligne.
 
+Pour le modèle ML, c'est un site web développé avec Dash et Python, sous le nom de FashionMe, où l'on peut consulter la liste des produits les plus populaires, les plus chers et les moins chers. Il intègre également une base de données supplémentaire contenant des images associées aux produits.
+
 ## Jeu de données (Dataset)
 Ensemble de données sur les transactions de vente au détail en ligne.
 
