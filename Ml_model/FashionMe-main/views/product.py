@@ -27,9 +27,9 @@ def make_product_card(title,description,sexe,mark,url_pic,finalp,originp,promo):
                             dbc.CardHeader(
                                 title,
                                 style = {  
-                                            'color': '#FFA500',
+                                            'color': 'white',
                                             'justify': 'center',
-                                            "background-color":"#4ECDC4",
+                                            "background-color":"green",
                                             'align': 'center',
                                             'fontWeight': 'bold',
                                             "margin":"5px 0px 5px 0px",
