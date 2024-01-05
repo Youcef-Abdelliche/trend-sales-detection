@@ -1,20 +1,18 @@
 from airflow.decorators import dag, task
-from datetime import datetime
 from airflow.providers.google.cloud.transfers.local_to_gcs import LocalFilesystemToGCSOperator
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateEmptyDatasetOperator
+from airflow.models.baseoperator import chain
 from astro import sql as aql
 from astro.files import File
 from astro.sql.table import Table, Metadata
 from astro.constants import FileType
-from include.dbt.cosmos_configuration import DBT_PROJECT_CONFIG, DBT_CONFIG
 from cosmos.airflow.task_group import DbtTaskGroup
 from cosmos.constants import LoadMode
-from cosmos.config import ProjectConfig, RenderConfig
-from airflow.models.baseoperator import chain
-#import sys
-#import os
-#sys.path.append('/usr/local/airflow/.dbt/')
-#from cosmos_configuration import DBT_CONFIG, DBT_PROJECT_CONFIG
+from cosmos.config import RenderConfig
+
+from include.dbt.cosmos_configuration import DBT_PROJECT_CONFIG, DBT_CONFIG
+from datetime import datetime
+
 
 @dag(
     start_date=datetime(2023,12,1),
@@ -23,8 +21,6 @@ from airflow.models.baseoperator import chain
     tags=['retail']
 )
 def retail():
-
-#    bucket = "youcef_retail_project"
 
     upload_csv_to_gcs = LocalFilesystemToGCSOperator(
         task_id='upload_csv_to_gcs',
@@ -62,8 +58,6 @@ def retail():
 
         return check(scan_name, checks_subpath)
     
-#    check_load()
-
     transform = DbtTaskGroup(
         group_id='transform',
         project_config=DBT_PROJECT_CONFIG,
@@ -80,8 +74,6 @@ def retail():
 
         return check(scan_name, checks_subpath)
     
-#    check_transform()
-
     chain(
         upload_csv_to_gcs,
         create_retail_dataset,
