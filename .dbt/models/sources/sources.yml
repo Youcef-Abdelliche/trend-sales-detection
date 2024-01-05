@@ -1,9 +1,0 @@
-version: 2
-
-sources:
-  - name: retail
-    database: airflow-project-402923 # Put the project id!
-
-    tables:
-      - name: country
-      - name: raw_invoices
