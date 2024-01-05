@@ -16,7 +16,7 @@ variable "zone" {
 }
 
 locals {
-  storage_bucket = "tsd_project_cloud_bucket"
+  storage_bucket = "youcef_retail_project"
 }
 
 variable "storage_class" {
