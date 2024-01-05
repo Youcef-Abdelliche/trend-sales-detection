@@ -1,5 +1,5 @@
 variable "gcp-creds" {
-default= "focused-sprite-401907-14e430ea106b.json"
+default= "/usr/local/airflow/include/gcp/service-account.json"
 }
 
 
