@@ -87,6 +87,17 @@ include/gcp/service-account.json
   - IAM service account credentials API
 
 #### 3. Terraform
+We used Terraform to build and manage GCP infrastructure. Terraform configuration files are located in the separate folder. There are 2 configuration files:
+
+- variables.tf - contains variables to make your configuration more dynamic and flexible;
+- main.tf - is a key configuration file consisting of several sections.
+
+Now we used the steps below to generate resources inside the GCP:
+
+1. Move to the terraform folder using bash command `cd`
+2. Run `terraform init` command to initialize the configuration.
+3. Use `terraform plan` to match previews local changes against a remote state.
+4. Apply changes to the cloud with `terraform apply` command.
 
 #### 4. Airflow Pipeline
 1. Start Airflow on your local machine by running:
@@ -128,4 +139,10 @@ In the Airflow UI:
 
 <img src="Data Analysis/Dashboard.png" alt="Dashboard" style="width:600px;"/>
 
+#### 5. BigQuery ML 
 
+we used BigQuery ML to create an ARIMA model for sales prediction for each product. the SQL query used to create the Model and forecast the values is in the `model creation.sql` file 
+
+finally, we visualized the predicted values in tableau to compare theme with the actual values
+
+<img src="predictions.png" alt="Dashboard" style="width:600px;"/>
