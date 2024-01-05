@@ -10,6 +10,7 @@ from include.dbt.cosmos_configuration import DBT_PROJECT_CONFIG, DBT_CONFIG
 from cosmos.airflow.task_group import DbtTaskGroup
 from cosmos.constants import LoadMode
 from cosmos.config import ProjectConfig, RenderConfig
+from airflow.models.baseoperator import chain
 #import sys
 #import os
 #sys.path.append('/usr/local/airflow/.dbt/')
@@ -61,7 +62,7 @@ def retail():
 
         return check(scan_name, checks_subpath)
     
-    check_load()
+#    check_load()
 
     transform = DbtTaskGroup(
         group_id='transform',
@@ -79,6 +80,15 @@ def retail():
 
         return check(scan_name, checks_subpath)
     
-    check_transform()
+#    check_transform()
+
+    chain(
+        upload_csv_to_gcs,
+        create_retail_dataset,
+        gcs_to_raw,
+        check_load(),
+        transform,
+        check_transform(),
+    )
 
 retail()
