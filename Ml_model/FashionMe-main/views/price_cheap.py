@@ -65,14 +65,14 @@ def price_cheap():
               )
 def filter_cheap(sexe,prod):
     if  sexe == [] or  prod == []:   
-        return  html.H1("You lust choose your sexe and your product !")
+        return  html.H1("Choose your sexe and your product !")
     else :
         df = get_df_products()
         selected_df = select_products(df,prod,sexe, "all")      
         df_products = select_moins_cher(selected_df)
         return html.Div(
                   [
-                              html.H3("This the list of the products with cheap price ! " ),
+                              html.H3("This the list of cheap price products ! " ),
                               html.Br(),
                               html.Div(make_list_prods(df_products) ) 
                   ]

@@ -68,7 +68,7 @@ def price_best():
 def filter_best(sexe,prod):
 
     if  sexe == [] or  prod == [] :   
-        return  html.H1("You lust choose your sexe and your product !")
+        return  html.H1("Choose your sexe and your product !")
     else :
         
         
@@ -77,7 +77,7 @@ def filter_best(sexe,prod):
         
         return html.Div(
             [
-          html.H3("This the list of the products with best price ! " ),
+          html.H3("This the list of best price products ! " ),
           html.Br(),
           html.Div( make_list_prods(df_products) )
 

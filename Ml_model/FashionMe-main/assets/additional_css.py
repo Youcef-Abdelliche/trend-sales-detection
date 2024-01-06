@@ -38,14 +38,13 @@ TabContainerStyle = {
 }
 
 tab_style = {
-    "border": "1px solid #ccc",
     'padding': '6px',
     'backgroundColor': maincolor,
     'color': '#fff',
     'justify': 'center',
     'align': 'center',
     'height': '65px',
-    'width': '200px',
+    'width': '230px',
     'fontWeight': 'bold',
     "fontFamily": familyfont,
     "margin":"20px",
@@ -54,7 +53,6 @@ tab_style = {
 }
 
 tab_selected_style = {
-    "border": "1px solid #ccc",
     'backgroundColor': "#4ECDC4",
     'color': '#fff',
     'padding': '10px',

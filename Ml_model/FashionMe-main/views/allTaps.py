@@ -96,7 +96,6 @@ def make_taps():
                                                                             "width":"1000px",
                                                                             'height': '1200px',
                                                                             'padding': '25px',
-                                                                           
 
                                                                         },
                                                                         children=[

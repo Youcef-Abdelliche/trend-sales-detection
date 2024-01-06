@@ -29,7 +29,7 @@ def make_product_card(title,description,sexe,mark,url_pic,finalp,originp,promo):
                                 style = {  
                                             'color': 'white',
                                             'justify': 'center',
-                                            "background-color":"green",
+                                            "background-color":"#4ECDC4",
                                             'align': 'center',
                                             'fontWeight': 'bold',
                                             "margin":"5px 0px 5px 0px",

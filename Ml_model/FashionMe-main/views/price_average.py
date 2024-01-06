@@ -65,7 +65,7 @@ def price_average():
 def filter_average(sexe,prod):
 
     if  sexe == [] or  prod == [] :   
-        return  html.H1("You lust choose your sexe and your product !")
+        return  html.H1("Choose your sexe and your product !")
     else :
         
         df = get_df_products()
@@ -74,7 +74,7 @@ def filter_average(sexe,prod):
         
         return html.Div(
             [
-          html.H3("This the list of the products with average price ! " ),
+          html.H3("This the list of average price products ! " ),
           html.Br(),
           html.Div( make_list_prods(df_products) )
 
