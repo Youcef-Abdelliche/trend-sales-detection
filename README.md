@@ -1,31 +1,148 @@
 
 # Trend Sales Detection
 
-## Description du projet
-Un projet de Data engineering dans lequel nous allons créer un pipeline de données ETL pour extraire, analyser et visualiser des informations à partir des données d'une entreprise de vente au détail en ligne.
+## project description
+A data engineering project in which we'll be creating an ETL data pipeline to extract, analyze and visualize information from the data of an online retail company.
 
-## Jeu de données (Dataset)
-Ensemble de données sur les transactions de vente au détail en ligne.
+For the ML model, this is a website developed with Dash and Python, under the name FashionMe, where you can consult the list of the most popular, most expensive and least expensive products. It also incorporates an additional database containing images associated with the products.
 
-| Colonne | Description |
-| ------ | ------ |
-| ID de transaction | Numéro de facture. Nominal, un numéro intégral à 6 chiffres attribué de manière unique à chaque transaction. Si ce code commence par la lettre "c", il s'agit d'une annulation. |
-|Date de la transaction|Date et heure de la facture. Numérique, le jour et l'heure où chaque transaction a été générée.|
-|Code produit|Code produit (article). Nominal, un numéro intégral à 5 chiffres attribué de manière unique à chaque produit distinct.|
-|Description du produit|Nom du produit (article). Nominal.|
-|Quantité vendue|La quantité de chaque produit (article) par transaction. Numérique.|
-|Prix unitaire|Prix unitaire. Numérique, prix du produit par unité en livres sterling.|
-|Pays|Nom du pays. Nominal, le nom du pays où réside chaque client.|
+## Dataset
+Data on online retail transactions.
 
-## Architecture du projet
+| **Column** | **Description** |
+| :--------------- |:---------------| 
+| **InvoiceNo** |  Invoice number. Nominal, a 6-digit integral number uniquely assigned to each transaction. If this code starts with the letter 'c', it indicates a cancellation.  |  
+| **StockCode** | Product (item) code. Nominal, a 5-digit integral number uniquely assigned to each distinct product. |
+| **Description**   |  Product (item) name. Nominal.  |
+| **Quantity**   |  The quantities of each product (item) per transaction. Numeric.  |
+| **InvoiceDate**   |  Invoice Date and time. Numeric, the day and time when each transaction was generated.  |
+| **UnitPrice**   |  Unit price. Numeric, Product price per unit in sterling.  |
+| **CustomerID**   |  Customer number. Nominal, a 5-digit integral number uniquely assigned to each customer.  |
+| **Country**   |  Country name. Nominal, the name of the country where each customer resides.   |
 
-- Configurer l'infrastructure du google cloud à l'aide de Terraform.
-- Configurer l'environnement local Airflow avec Astro CLI.
-- Créer un pipeline de données en utilisant Airflow.
-- Télécharger les fichiers CSV dans Google Cloud Storage.
-- Ingestion des données dans BigQuery.
-- Implémenter des contrôles de qualité des données dans le pipeline en utilisant - Soda.
-- Intégrer dbt et exécuter des modèles de données avec Airflow.
-- Créer un dashboard en utilisant Tableau.
+## Project Architecture
 
-<img src="archi.png" alt="Architecture" style="width:600px;"/>
+- Configure google cloud infrastructure using Terraform.
+- Configure the local Airflow environment with Astro CLI.
+- Create a data pipeline using Airflow.
+- Upload CSV files to Google Cloud Storage.
+- Manage data in BigQuery.
+- Implement data quality checks in the pipeline using - Soda.
+- Integrate dbt and cosmos to run data models with Airflow.
+- Create a dashboard using Tableau.
+- Train ML model with BigQueryML.
+
+<img src="images/archi.png" alt="Architecture" style="width:600px;"/>
+
+### Pipeline Architecture
+<img src="images/airflowpipeline.png" alt="archipipeline" style="width:600px;"/>
+
+### Pipeline sur airflow (Pipeline on Airflow)
+<img src="images/pipeline.png" alt="pipeline" style="width:600px;"/>
+
+### Data Modeling (dimention tables)
+<img src="images/data-modeling.png" alt="Architecture" style="width:600px;"/>
+
+### Technologies Used
+- **Infrastructure**: Terraform
+- **Google Cloud Platform (GCP)**
+  - Data Lake : Cloud Storage
+  - Data Warehouse : BigQuery
+- **Astro SDK** for Airflow setup
+- **Workflow orchestration:** Apache Airflow
+- **Transforming data:** dbt & cosmos
+- **Data quality checks:** Soda
+- **Containerization:** Docker
+- **Data Visualization:** Tableau
+- **Machine Learning:** BigQueryML
+
+## Usage
+#### 1. Clone repository:
+First, clone the repository using http:
+```
+git clone https://github.com/Youcef-Abdelliche/trend-sales-detection.git
+```
+or ssh:
+```
+git clone git@github.com:Youcef-Abdelliche/trend-sales-detection.git
+```
+
+#### 2. Setup GCP configuration (Google cloud platform):
+
+1. Create your GCP free trial.
+2. Set up new project and write down your Project ID.
+3. Configure service account to get access to this project and download auth-key (.json). Please check the service account has all the permissions below:
+    - Viewer
+    - Storage Admin
+    - Storage Object Admin
+    - BigQuery Admin
+4. Download auth-key json file and replace it with service-account.json file in the path:
+```
+include/gcp/service-account.json
+```
+4. Download SDK for local setup.
+
+5. Enable the following options under the APIs and services section:
+  - Identity and Access Management (IAM) API
+  - IAM service account credentials API
+
+#### 3. Terraform
+We used Terraform to build and manage GCP infrastructure. Terraform configuration files are located in the separate folder. There are 2 configuration files:
+
+- variables.tf - contains variables to make your configuration more dynamic and flexible;
+- main.tf - is a key configuration file consisting of several sections.
+
+Now we used the steps below to generate resources inside the GCP:
+
+1. Move to the terraform folder using bash command `cd`
+2. Run `terraform init` command to initialize the configuration.
+3. Use `terraform plan` to match previews local changes against a remote state.
+4. Apply changes to the cloud with `terraform apply` command.
+
+#### 4. Airflow Pipeline
+1. Start Airflow on your local machine by running:
+```
+astro dev start
+```
+This command will start 4 Docker containers on your machine, each for a different Airflow component:
+
+- **Webserver:** The Airflow component responsible for rendering the Airflow UI
+- **Scheduler:** The Airflow component responsible for monitoring and triggering tasks
+- **Triggerer:** The Airflow component responsible for triggering deferred tasks
+- **Postgres:** Airflow's Metadata Database
+
+Run 'docker ps' to verify that all 4 Docker containers were created.
+```
+docker ps
+```
+
+2. Access the Airflow UI for your local Airflow project. To do so, go to 
+```
+http://localhost:8080/
+```
+and log in with those crededntials: 
+Username: 'admin'
+Password: 'admin'
+
+4. Configure your Google Cloud Platform credentials.
+5. Create and configure the necessary connections in Airflow:
+In the Airflow UI:
+- Airflow → Admin → Connections
+    - id: gcp
+    - type: Google Cloud
+    - Keypath Path: `/usr/local/airflow/include/gcp/service_account.json`
+- Test the connection (Click on 'Test' button) → Save (Click on 'Save' button)
+6. Customize the Airflow DAGs to suit your specific requirements.
+7. Run the pipeline and monitor its execution.
+
+#### 5. Tableau visualization
+
+<img src="Data Analysis/Dashboard.png" alt="Dashboard" style="width:600px;"/>
+
+#### 5. BigQuery ML 
+
+we used BigQuery ML to create an ARIMA model for sales prediction for each product. the SQL query used to create the Model and forecast the values is in the `model creation.sql` file 
+
+finally, we visualized the predicted values in tableau to compare theme with the actual values
+
+<img src="predictions.png" alt="Dashboard" style="width:600px;"/>

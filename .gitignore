@@ -23,3 +23,7 @@ override.tf.json
 *_override.tf.json
 .terraformrc
 terraform.rc
+include/gcp/
+**/configuration.yml
+.vscode
+**/dbt_packages/

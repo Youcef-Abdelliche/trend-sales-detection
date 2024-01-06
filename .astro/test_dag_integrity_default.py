@@ -126,6 +126,7 @@ def get_import_errors():
 @pytest.mark.parametrize(
     "rel_path, rv", get_import_errors(), ids=[x[0] for x in get_import_errors()]
 )
+
 def test_file_imports(rel_path, rv):
     """Test for import errors on a file"""
     if rv != "No import errors":

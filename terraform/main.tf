@@ -8,10 +8,13 @@ terraform {
   }
 }
 
+
+
 provider "google" {
   region = var.region
-  // credentials = file(var.credentials)  # Use this if you do not want to set env-var GOOGLE_APPLICATION_CREDENTIALS
+  credentials = file(var.credentials)  # Use this if you do not want to set env-var GOOGLE_APPLICATION_CREDENTIALS
 }
+
 
 resource "google_storage_bucket" "storage-bucket" {
   name          = "${local.storage_bucket}"
@@ -21,9 +24,11 @@ resource "google_storage_bucket" "storage-bucket" {
   storage_class = var.storage_class
   uniform_bucket_level_access = true
 
+
   versioning {
     enabled     = true
   }
+
 
   lifecycle_rule {
     action {
@@ -33,6 +38,7 @@ resource "google_storage_bucket" "storage-bucket" {
       age = 30  
     }
   }
+
 
   force_destroy = true
 }
